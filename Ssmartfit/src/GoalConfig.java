@@ -45,14 +45,14 @@ public class GoalConfig {
     }
     public String getScheduleNote(int trainingDays) {
         if (trainingDays == 1) {
-            return "Training once a week is a great starting point, especially if you have a busy schedule. " +
-                "However, progress may be slower compared to training multiple times per week. " +
+            return "Training once a week is a great starting point, especially if you have a busy schedule. \n" +
+                "However, progress may be slower compared to training multiple times per week. \n" +
                 "If your goal is to build muscle, lose weight, or gain strength faster, consider increasing " +
-                "your workout days when possible. Consistency matters most, start with what you can handle " +
+                "your workout days when possible.\nConsistency matters most, start with what you can handle " +
                 "and improve over time.";
         } else if (trainingDays == 2) {
             return "Training twice a week is a solid and effective routine. It allows enough recovery while " +
-                "still helping you build strength and improve fitness. For faster progress, you may consider " +
+                "still helping you build strength and improve fitness.\nFor faster progress, you may consider " +
                 "increasing your training days in the future, but this is already a strong and sustainable setup.";
         }
         return null; // no schedule note for 3+ days
