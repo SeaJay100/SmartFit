@@ -21,17 +21,17 @@ public class UserSetup extends User {
         System.out.println("\nSelect your fitness goal:");
         System.out.println("  1. Weight Loss");
         System.out.println("  2. Muscle Gain");
-        System.out.println("  3. Strength");
+        System.out.println("  3. Improve Strength");
         System.out.println("  4. Overall Fitness");
         setUserFitnessGoals();
     }
 
     public void equipmentLevel() {
         System.out.println("\nSelect your available equipment:");
-        System.out.println("  1. No Equipment (bodyweight / pull-up bar / bands)");
-        System.out.println("  2. Free Weights (dumbbells / barbell / bench)");
-        System.out.println("  3. Machine Only");
-        System.out.println("  4. Complete Gym");
+        System.out.println("  1. No Equipment (bodyweight / pull-up bar / resistance bands)");
+        System.out.println("  2. Free Weights (dumbbells / barbell / weight bench)");
+        System.out.println("  3. Machine Only (chest press / lat pulldown / treadmill");
+        System.out.println("  4. Complete Equipment (access to all types)");
         setUserEquipments();
     }
 }
