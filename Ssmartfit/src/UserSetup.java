@@ -1,3 +1,5 @@
+import java.util.InputMismatchException;
+
 public class UserSetup extends User {
 
     public void userSetup() {
@@ -23,15 +25,39 @@ public class UserSetup extends User {
         System.out.println("  2. Muscle Gain");
         System.out.println("  3. Improve Strength");
         System.out.println("  4. Overall Fitness");
-        setUserFitnessGoals();
+        while (true) {
+            try {
+                setUserFitnessGoals();
+                int choice = getUserFitnessGoals();
+                if (choice >= 1 && choice <= 4) {
+                    break;
+                }
+                System.out.println("Please enter a number from 1 to 4.");
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Please enter a number (1-4).");
+                sc.nextLine();
+            }
+        }
     }
 
     public void equipmentLevel() {
         System.out.println("\nSelect your available equipment:");
         System.out.println("  1. No Equipment (bodyweight / pull-up bar / resistance bands)");
         System.out.println("  2. Free Weights (dumbbells / barbell / weight bench)");
-        System.out.println("  3. Machine Only (chest press / lat pulldown / treadmill");
+        System.out.println("  3. Machine Only (chest press / lat pull-down / treadmill");
         System.out.println("  4. Complete Equipment (access to all types)");
-        setUserEquipments();
+        while (true) {
+            try {
+                setUserEquipments();
+                int choice = getUserEquipments();
+                if (choice >= 1 && choice <= 4) {
+                    break;
+                }
+                System.out.println("Please enter a number from 1 to 4.");
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Please enter a number (1-4).");
+                sc.nextLine();
+            }
+        }
     }
 }
