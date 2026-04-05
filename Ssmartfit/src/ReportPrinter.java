@@ -69,6 +69,19 @@ public class ReportPrinter {
     private void printUserNote() {
         System.out.println("------------------------------------------------------------");
         System.out.println("Note: " + goal.getGoalNote());
+
+        // Count actual training days (skip REST days)
+        int trainingDays = 0;
+        for (WorkoutDay day : schedule) {
+            if (!day.isRest()) trainingDays++;
+        }
+
+        String scheduleNote = goal.getScheduleNote(trainingDays);
+        if (scheduleNote != null) {
+            System.out.println();
+            System.out.println(scheduleNote);
+        }
+
         System.out.println("------------------------------------------------------------");
     }
 }
