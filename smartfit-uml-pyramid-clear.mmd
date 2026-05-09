@@ -1,0 +1,103 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial", "fontSize": "24px", "primaryColor": "#f8fafc", "primaryBorderColor": "#334155", "primaryTextColor": "#0f172a", "lineColor": "#475569"}}}%%
+classDiagram
+    direction TB
+
+    class Main {
+        Entry Point
+    }
+
+    class UserSetup {
+        Controls Program Flow
+    }
+
+    class User {
+        Stores User Input
+    }
+
+    class GoalConfig {
+        Creates Goal Object
+    }
+
+    class RoutineSelector {
+        Builds Weekly Routine
+    }
+
+    class ExerciseSelector {
+        Chooses Exercise
+    }
+
+    class ReportPrinter {
+        Prints Final Report
+    }
+
+    class WorkoutDay {
+        One Schedule Day
+    }
+
+    class GoalProfile {
+        <<abstract>>
+        Common Goal Details
+    }
+
+    class ExerciseProvider {
+        <<interface>>
+        Exercise Contract
+    }
+
+    class WeightLossGoal {
+        Weight Loss
+    }
+
+    class MuscleGainGoal {
+        Muscle Gain
+    }
+
+    class StrengthGoal {
+        Strength
+    }
+
+    class OverallFitnessGoal {
+        Overall Fitness
+    }
+
+    Main --> UserSetup : starts
+    UserSetup --|> User : extends
+
+    UserSetup --> GoalConfig : uses
+    UserSetup --> RoutineSelector : uses
+    UserSetup --> ExerciseSelector : uses
+    UserSetup --> ReportPrinter : uses
+
+    GoalConfig --> GoalProfile : creates
+    RoutineSelector --> WorkoutDay : creates
+    ReportPrinter --> GoalProfile : reads
+    ReportPrinter --> ExerciseProvider : reads
+    ReportPrinter --> WorkoutDay : prints
+
+    ExerciseSelector ..|> ExerciseProvider : implements
+
+    WeightLossGoal --|> GoalProfile
+    MuscleGainGoal --|> GoalProfile
+    StrengthGoal --|> GoalProfile
+    OverallFitnessGoal --|> GoalProfile
+
+    classDef top fill:#dbeafe,stroke:#1d4ed8,stroke-width:3px,color:#0f172a
+    classDef controller fill:#dcfce7,stroke:#15803d,stroke-width:3px,color:#0f172a
+    classDef module fill:#fef9c3,stroke:#a16207,stroke-width:3px,color:#0f172a
+    classDef oop fill:#f3e8ff,stroke:#7e22ce,stroke-width:3px,color:#0f172a
+    classDef child fill:#fee2e2,stroke:#b91c1c,stroke-width:3px,color:#0f172a
+
+    class Main top
+    class UserSetup controller
+    class User module
+    class GoalConfig module
+    class RoutineSelector module
+    class ExerciseSelector module
+    class ReportPrinter module
+    class WorkoutDay module
+    class GoalProfile oop
+    class ExerciseProvider oop
+    class WeightLossGoal child
+    class MuscleGainGoal child
+    class StrengthGoal child
+    class OverallFitnessGoal child
