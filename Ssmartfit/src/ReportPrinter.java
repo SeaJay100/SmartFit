@@ -27,11 +27,11 @@ public class ReportPrinter {
     private void printHeader() {
         System.out.println("------------------------------------------------------------");
         System.out.println("Name       : " + name);
-        System.out.println("Goal       : " + goal.getGoalLabel());
+        System.out.println("Goal       : " + goal.getLabel());
         System.out.println("Routine    : " + routineName);
         System.out.println("Sets       : " + goal.getSets());
         System.out.println("Reps       : " + goal.getRepRange());
-        System.out.println("Cardio     : " + (goal.includesCardio() ? "Yes" : "No"));
+        System.out.println("Cardio     : " + (goal.hasCardio() ? "Yes" : "No"));
         System.out.println("------------------------------------------------------------");
     }
 
@@ -55,7 +55,7 @@ public class ReportPrinter {
                 count++;
             }
 
-            if (goal.includesCardio()) {
+            if (goal.hasCardio()) {
                 String cardio = exercises.get("Cardio");
                 System.out.println("  " + count + ". " + cardio + " - 10-15 min");
             }
@@ -68,13 +68,7 @@ public class ReportPrinter {
         System.out.println("------------------------------------------------------------");
         System.out.println("Note: " + goal.getGoalNote());
 
-        // Count actual training days (skip REST days)
-        int trainingDays = 0;
-        for (WorkoutDay day : schedule) {
-            if (!day.isRest()) trainingDays++;
-        }
-
-        String scheduleNote = goal.getScheduleNote(trainingDays);
+        String scheduleNote = goal.getScheduleNote();
         if (scheduleNote != null) {
             System.out.println();
             System.out.println(scheduleNote);

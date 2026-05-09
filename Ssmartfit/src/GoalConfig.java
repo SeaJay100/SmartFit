@@ -1,6 +1,6 @@
 public class GoalConfig {
 
-    public static GoalProfile createGoal(int goal) {
+    public static GoalProfile fromChoice(int goal) {
         if (goal == 1) {
             return new WeightLossGoal();
         }
