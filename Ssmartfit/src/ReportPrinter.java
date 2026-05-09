@@ -3,17 +3,15 @@ import java.util.List;
 public class ReportPrinter {
 
     private final String name;
-    private final String availabilityRaw;
-    private final GoalConfig goal;
-    private final ExerciseSelector exercises;
+    private final GoalProfile goal;
+    private final ExerciseProvider exercises;
     private final List<WorkoutDay> schedule;
     private final String routineName;
 
-    public ReportPrinter(String name, String availabilityRaw,
-                         GoalConfig goal, ExerciseSelector exercises,
+    public ReportPrinter(String name,
+                         GoalProfile goal, ExerciseProvider exercises,
                          List<WorkoutDay> schedule, String routineName) {
         this.name = name;
-        this.availabilityRaw = availabilityRaw;
         this.goal = goal;
         this.exercises = exercises;
         this.schedule = schedule;

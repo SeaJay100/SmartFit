@@ -1,6 +1,6 @@
 public class Main {
-    public static void main(String[] args) {
-        UserResults user = new UserResults();
+    static void main(String[] args) {
+        UserSetup user = new UserSetup();
         user.userSetup();
         user.results();
     }

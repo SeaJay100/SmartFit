@@ -1,102 +1,99 @@
-import java.util.*;
+import java.util.Scanner;
 
-public abstract class User {
+public class User {
 
-   static Scanner sc = new Scanner(System.in);
+    protected static final Scanner sc = new Scanner(System.in);
 
     private String userName;
     private String userAvailableDays;
     private int userFitnessGoals;
-    private int userRoutine;
     private int userEquipments;
 
-    //Handles Name
-    public String setName() {
-        this.userName = sc.nextLine();
-        if (userName.isEmpty() || userName.isBlank()) {
+    public void setName() {
+        userName = sc.nextLine().trim();
+        if (userName.isBlank()) {
             userName = "NoName";
         }
-        return null;
     }
 
     public String getName() {
         return userName;
     }
 
-    //Handles Available Days
-    public void setAvailability(){
-        while(true) {
-            this.userAvailableDays = sc.nextLine().trim();
+    public void setAvailability() {
+        while (true) {
+            userAvailableDays = sc.nextLine().trim();
 
             if (isValidDays(userAvailableDays)) {
-                break;
-            } else {
-                System.out.println("Invalid input! Please enter days separated by commas (e.g., Monday,Wednesday,Friday)");
-                System.out.println("Or Mon, Fri, Sat");
+                return;
             }
+
+            System.out.println("Invalid input! Please enter days separated by commas.");
+            System.out.println("Example: Monday, Wednesday, Friday or Mon, Wed, Fri");
         }
     }
 
-    public String getAvailability(){
-        return userAvailableDays;
-    }
-
-    //Handles available days validation
     public boolean isValidDays(String input) {
-        Set<String> validDays = new HashSet<>(Arrays.asList(
-                "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
-                "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
+        if (input == null || input.isBlank()) {
+            return false;
+        }
 
         String[] days = input.split(",");
-        Set<String> seenDays = new HashSet<>();
-        
-        for (String day : days) {
-            String trimmedDay = day.trim();
-            if (!validDays.contains(trimmedDay)) {
+        String[] savedDays = new String[days.length];
+
+        for (int i = 0; i < days.length; i++) {
+            String day = normalizeDay(days[i].trim());
+            if (day == null) {
                 return false;
             }
-            if (!seenDays.add(trimmedDay)) {
-                return false; // Duplicate found
+
+            for (String savedDay : savedDays) {
+                if (day.equals(savedDay)) {
+                    return false;
+                }
             }
+
+            savedDays[i] = day;
         }
+
         return true;
     }
 
-    //Stores available days
     public String[] getAvailableDaysArray() {
         String[] days = userAvailableDays.split(",");
-        String[] trimmedDays = new String[days.length];
+        String[] availableDays = new String[days.length];
+
         for (int i = 0; i < days.length; i++) {
-            trimmedDays[i] = days[i].trim();
+            availableDays[i] = normalizeDay(days[i].trim());
         }
-        return trimmedDays;
+
+        return availableDays;
     }
 
-    //Handles FitnessGoals
-    public void setUserFitnessGoals() {
-        this.userFitnessGoals = sc.nextInt();
+    public void setUserFitnessGoals(int value) {
+        userFitnessGoals = value;
     }
 
     public int getUserFitnessGoals() {
         return userFitnessGoals;
     }
 
-    //Handles Routines
-    public void setUserRoutine() {
-        this.userRoutine = sc.nextInt();
+    public void setUserEquipments(int value) {
+        userEquipments = value;
     }
 
-    public int getUserRoutine() {
-        return userRoutine;
-    }
-
-    //Handles Equipments
-    public int setUserEquipments() {
-        this.userEquipments = sc.nextInt();
-        return 0;
-    }
     public int getUserEquipments() {
         return userEquipments;
     }
 
+    private String normalizeDay(String day) {
+        if (day.equalsIgnoreCase("Monday") || day.equalsIgnoreCase("Mon")) return "Monday";
+        if (day.equalsIgnoreCase("Tuesday") || day.equalsIgnoreCase("Tue")) return "Tuesday";
+        if (day.equalsIgnoreCase("Wednesday") || day.equalsIgnoreCase("Wed")) return "Wednesday";
+        if (day.equalsIgnoreCase("Thursday") || day.equalsIgnoreCase("Thu")) return "Thursday";
+        if (day.equalsIgnoreCase("Friday") || day.equalsIgnoreCase("Fri")) return "Friday";
+        if (day.equalsIgnoreCase("Saturday") || day.equalsIgnoreCase("Sat")) return "Saturday";
+        if (day.equalsIgnoreCase("Sunday") || day.equalsIgnoreCase("Sun")) return "Sunday";
+        return null;
+    }
 }
