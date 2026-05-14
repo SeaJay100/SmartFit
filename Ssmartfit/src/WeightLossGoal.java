@@ -1,3 +1,4 @@
+// Training for weight loss: high reps, short rest, includes cardio
 public class WeightLossGoal extends GoalProfile {
 
     @Override
@@ -10,6 +11,7 @@ public class WeightLossGoal extends GoalProfile {
         return 3;
     }
 
+    // Higher reps for more metabolic stress
     @Override
     public String getRepRange() {
         return "12-15";

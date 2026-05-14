@@ -3,18 +3,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+// Generates personalized workout schedule based on available days and fitness goal
 public class RoutineSelector {
 
     private static final String[] WEEK = {
         "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
     };
 
+    // Different routine templates for various goals
     private static final List<String> FULL_BODY = Arrays.asList(
         "Horizontal Push", "Vertical Push", "Horizontal Pull", "Vertical Pull",
         "Leg Pressing", "Hip Hinge", "Biceps", "Triceps",
         "Side Delts", "Calves", "Core (Upper Abs)", "Core (Lower Abs)"
     );
 
+    // Lean version for weight loss/endurance goals (removes isolation work)
     private static final List<String> FULL_BODY_LEAN = Arrays.asList(
         "Horizontal Push", "Vertical Push", "Horizontal Pull", "Vertical Pull",
         "Leg Pressing", "Hip Hinge", "Calves", "Core (Upper Abs)", "Core (Lower Abs)"
@@ -67,6 +70,7 @@ public class RoutineSelector {
         return assignedRoutineName;
     }
 
+    // Build the full week schedule
     public List<WorkoutDay> buildSchedule() {
         String[] routineLabels = chooseRoutine();
         List<WorkoutDay> week = new ArrayList<>();
@@ -78,6 +82,7 @@ public class RoutineSelector {
                 week.add(new WorkoutDay(day, label, getMovements(label)));
                 routineIndex++;
             } else {
+                // Rest day
                 week.add(new WorkoutDay(day, "REST", Collections.emptyList()));
             }
         }
@@ -85,6 +90,7 @@ public class RoutineSelector {
         return week;
     }
 
+    // Choose routine split based on number of available days
     private String[] chooseRoutine() {
         int days = availableDays.length;
 
@@ -117,6 +123,7 @@ public class RoutineSelector {
         return new String[] {"Full Body"};
     }
 
+    // Get movements for a given routine type, considering fitness goal
     private List<String> getMovements(String label) {
         if (label.equals("Push")) return leanVersion(PUSH);
         if (label.equals("Pull")) return leanVersion(PULL);
@@ -125,10 +132,11 @@ public class RoutineSelector {
         if (label.equals("Lower")) return LOWER;
         if (label.equals("Full Body A")) return leanVersion(FULL_BODY_A);
         if (label.equals("Full Body B")) return leanVersion(FULL_BODY_B);
-        if (goal == 1 || goal == 4) return FULL_BODY_LEAN;
+        if (goal == 1 || goal == 4) return FULL_BODY_LEAN;  // Weight loss or overall fitness
         return FULL_BODY;
     }
 
+    // Remove isolation exercises for weight loss/overall fitness goals
     private List<String> leanVersion(List<String> movements) {
         if (goal != 1 && goal != 4) {
             return movements;
@@ -136,6 +144,7 @@ public class RoutineSelector {
 
         List<String> result = new ArrayList<>();
         for (String movement : movements) {
+            // Skip isolation movements to focus on compound lifts
             if (!movement.equals("Biceps")
                 && !movement.equals("Triceps")
                 && !movement.equals("Side Delts")
@@ -146,6 +155,7 @@ public class RoutineSelector {
         return result;
     }
 
+    // Check if day is in available days
     private boolean isAvailable(String day) {
         for (String availableDay : availableDays) {
             if (day.equals(availableDay)) {
@@ -155,6 +165,7 @@ public class RoutineSelector {
         return false;
     }
 
+    // Sort days chronologically (Mon -> Sun)
     private String[] sortDays(String[] days) {
         String[] sorted = days.clone();
 
@@ -171,6 +182,7 @@ public class RoutineSelector {
         return sorted;
     }
 
+    // Get numeric position of day in week (0=Monday, 6=Sunday)
     private int dayNumber(String day) {
         for (int i = 0; i < WEEK.length; i++) {
             if (WEEK[i].equals(day)) {

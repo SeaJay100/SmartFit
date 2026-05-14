@@ -1,7 +1,9 @@
+// Maps movement categories to specific exercises based on equipment level
 public class ExerciseSelector implements ExerciseProvider {
 
     private final int equipment;
 
+    // 2D lookup table: rows = movements, columns = equipment levels (1-4)
     private static final String[][] EXERCISES = {
         {"Horizontal Push", "Push-ups", "Barbell Bench Press", "Chest Press Machine", "Dumbbell Flat Press"},
         {"Incline Push", "Decline Push-ups", "Incline Dumbbell Press", "Incline Chest Press Machine", "Incline Dumbbell Press"},
@@ -27,6 +29,7 @@ public class ExerciseSelector implements ExerciseProvider {
         this.equipment = equipment;
     }
 
+    // Search lookup table for movement and return exercise for user's equipment level
     @Override
     public String get(String movement) {
         int column = equipment;

@@ -1,3 +1,4 @@
+// Balanced training: moderate reps, includes cardio - general health and fitness
 public class OverallFitnessGoal extends GoalProfile {
 
     @Override
@@ -10,6 +11,7 @@ public class OverallFitnessGoal extends GoalProfile {
         return 3;
     }
 
+    // Balanced rep range
     @Override
     public String getRepRange() {
         return "10-12";

@@ -1,9 +1,11 @@
 import java.util.Scanner;
 
+// Handles collecting and validating user input
 public class UserSetup {
 
     private final Scanner scanner = new Scanner(System.in);
 
+    // Guides user through setup process
     public User createUser() {
         printLine();
         System.out.println("  WELCOME TO YOUR PERSONALIZED WORKOUT GENERATOR");
@@ -23,6 +25,7 @@ public class UserSetup {
         return new User(name, availableDays, fitnessGoal, equipmentLevel);
     }
 
+    // Returns user's name or "NoName" if empty
     private String readName() {
         String name = scanner.nextLine().trim();
         if (name.isEmpty()) {
@@ -31,6 +34,7 @@ public class UserSetup {
         return name;
     }
 
+    // Repeatedly prompts until valid days are entered
     private String[] readAvailableDays() {
         while (true) {
             String input = scanner.nextLine().trim();
@@ -45,6 +49,7 @@ public class UserSetup {
         }
     }
 
+    // Show fitness goal options
     private int readFitnessGoal() {
         System.out.println("\nSelect your fitness goal:");
         System.out.println("  1. Weight Loss");
@@ -54,6 +59,7 @@ public class UserSetup {
         return readChoice();
     }
 
+    // Show equipment level options
     private int readEquipmentLevel() {
         System.out.println("\nSelect your available equipment:");
         System.out.println("  1. No Equipment (bodyweight / pull-up bar / resistance bands)");
@@ -63,6 +69,7 @@ public class UserSetup {
         return readChoice();
     }
 
+    // Validate numeric choice (1-4)
     private int readChoice() {
         while (true) {
             String input = scanner.nextLine().trim();
@@ -75,6 +82,7 @@ public class UserSetup {
         }
     }
 
+    // Parse and validate comma-separated days, return null if invalid
     private String[] parseDays(String input) {
         if (input.isEmpty()) {
             return null;
@@ -84,8 +92,10 @@ public class UserSetup {
         String[] days = new String[rawDays.length];
 
         for (int i = 0; i < rawDays.length; i++) {
+            // Convert "Mon" -> "Monday", etc.
             String day = normalizeDay(rawDays[i].trim());
 
+            // Check for valid day name and duplicates
             if (day == null || alreadyEntered(days, day)) {
                 return null;
             }
@@ -96,6 +106,7 @@ public class UserSetup {
         return days;
     }
 
+    // Check if day already exists in array
     private boolean alreadyEntered(String[] days, String day) {
         for (String savedDay : days) {
             if (day.equals(savedDay)) {
@@ -105,6 +116,7 @@ public class UserSetup {
         return false;
     }
 
+    // Normalize day input (handle "Mon", "Monday", etc.)
     private String normalizeDay(String day) {
         if (day.equalsIgnoreCase("Monday") || day.equalsIgnoreCase("Mon")) return "Monday";
         if (day.equalsIgnoreCase("Tuesday") || day.equalsIgnoreCase("Tue")) return "Tuesday";

@@ -1,5 +1,6 @@
 import java.util.List;
 
+// Formats and prints the personalized workout plan
 public class ReportPrinter {
 
     private final String name;
@@ -18,12 +19,14 @@ public class ReportPrinter {
         this.routineName = routineName;
     }
 
+    // Print header, schedule, and notes
     public void print() {
         printHeader();
         printSchedule();
         printUserNote();
     }
 
+    // Print user info and training parameters
     private void printHeader() {
         System.out.println("------------------------------------------------------------");
         System.out.println("Name       : " + name);
@@ -35,6 +38,7 @@ public class ReportPrinter {
         System.out.println("------------------------------------------------------------");
     }
 
+    // Print detailed weekly schedule with exercises
     private void printSchedule() {
         System.out.println();
 
@@ -49,12 +53,14 @@ public class ReportPrinter {
 
             int count = 1;
             for (String movement : day.getMovements()) {
+                // Get specific exercise based on equipment
                 String exercise = exercises.get(movement);
                 System.out.println("  " + count + ". " + exercise
                         + " - " + goal.getSets() + " sets x " + goal.getRepRange() + " reps");
                 count++;
             }
 
+            // Add cardio if goal includes it
             if (goal.hasCardio()) {
                 String cardio = exercises.get("Cardio");
                 System.out.println("  " + count + ". " + cardio + " - 10-15 min");
@@ -64,6 +70,7 @@ public class ReportPrinter {
         }
     }
 
+    // Print goal-specific advice and tips
     private void printUserNote() {
         System.out.println("------------------------------------------------------------");
         System.out.println("Note: " + goal.getGoalNote());
